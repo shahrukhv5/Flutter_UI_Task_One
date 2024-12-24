@@ -38,26 +38,25 @@ class UserDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(width: 15),
                     Expanded(
-                      // Ensure the text wraps
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Name: ${user['name']}",
+                            "Name: ${user['name'] ?? 'N/A'}", // Null check
                             style: const TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            "Email: ${user['email']}",
+                            "Email: ${user['email'] ?? 'N/A'}", // Null check
                             style: const TextStyle(
                               fontSize: 18,
                               color: Colors.grey,
                             ),
                           ),
                           Text(
-                            "Phone: ${user['phone']}",
+                            "Phone: ${user['phone'] ?? 'N/A'}", // Null check
                             style: const TextStyle(
                               fontSize: 18,
                               color: Colors.grey,
@@ -75,7 +74,7 @@ class UserDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Website: ${user['website']}",
+                      "Website: ${user['website'] ?? 'N/A'}", // Null check
                       style: const TextStyle(
                         fontSize: 18,
                         color: Colors.grey,
@@ -89,8 +88,11 @@ class UserDetailPage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    // Null check for address fields
                     Text(
-                      "${user['address']['street']}, ${user['address']['suite']}, ${user['address']['city']}, ${user['address']['zipcode']}",
+                      user['address'] != null
+                          ? "${user['address']['street'] ?? ''}, ${user['address']['suite'] ?? ''}, ${user['address']['city'] ?? ''}, ${user['address']['zipcode'] ?? ''}"
+                          : "N/A",
                       style: const TextStyle(
                         fontSize: 18,
                         color: Colors.grey,
@@ -104,8 +106,11 @@ class UserDetailPage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    // Null check for company fields
                     Text(
-                      "${user['company']['name']} - ${user['company']['catchPhrase']}",
+                      user['company'] != null
+                          ? "${user['company']['name'] ?? ''} - ${user['company']['catchPhrase'] ?? ''}"
+                          : "N/A",
                       style: const TextStyle(
                         fontSize: 18,
                         color: Colors.grey,

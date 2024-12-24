@@ -19,7 +19,7 @@ class _ApiDataPageState extends State<ApiDataPage> {
   @override
   void initState() {
     super.initState();
-    fetchData(); // Automatically fetch data when the widget is initialized
+    fetchData();
   }
 
   Future<void> fetchData() async {
@@ -51,6 +51,43 @@ class _ApiDataPageState extends State<ApiDataPage> {
     }
   }
 
+  Future<void> postData(Map<String, dynamic> newUser) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final url = Uri.parse('https://jsonplaceholder.typicode.com/users');
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(newUser),
+      );
+
+      if (response.statusCode == 201) {
+        final createdUser = jsonDecode(response.body);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('User created successfully!')),
+        );
+
+        setState(() {
+          _data.add(createdUser); // Add new user to the list
+          _filteredData = _data; // Update filtered list
+        });
+      } else {
+        throw Exception('Failed to create user');
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   void _filterData(String query) {
     setState(() {
       _searchQuery = query;
@@ -72,59 +109,93 @@ class _ApiDataPageState extends State<ApiDataPage> {
     });
   }
 
+  void _showAddUserDialog() {
+    final nameController = TextEditingController();
+    final emailController = TextEditingController();
+    final phoneController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Add New User'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(labelText: 'Name'),
+              ),
+              TextField(
+                controller: emailController,
+                decoration: const InputDecoration(labelText: 'Email'),
+              ),
+              TextField(
+                controller: phoneController,
+                decoration: const InputDecoration(labelText: 'Phone'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                final newUser = {
+                  'name': nameController.text,
+                  'email': emailController.text,
+                  'phone': phoneController.text,
+                };
+                postData(newUser);
+                Navigator.pop(context);
+              },
+              child: const Text('Add'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Users List'),
+        backgroundColor: const Color(0xFF93ABFF),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: _showAddUserDialog,
+          ),
+        ],
+      ),
       body: Column(
         children: [
-          // Custom AppBar
           Container(
-            decoration: BoxDecoration(
-              color: Color(0xFF93ABFF), // Purple background color
+            decoration: const BoxDecoration(
+              color: Color(0xFF93ABFF),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(25),
                 bottomRight: Radius.circular(25),
               ),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
             child: Column(
               children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      "Users List",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 50),
+                const SizedBox(height: 20),
                 TextField(
                   onChanged: _filterData,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
                     hintText: "Search",
-                    prefixIcon: Icon(Icons.search, color: Color(0xFF93ABFF)),
+                    prefixIcon:
+                        const Icon(Icons.search, color: Color(0xFF93ABFF)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
                       borderSide: BorderSide.none,
@@ -134,7 +205,6 @@ class _ApiDataPageState extends State<ApiDataPage> {
               ],
             ),
           ),
-          // Data List
           Expanded(
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
@@ -199,7 +269,7 @@ class _ApiDataPageState extends State<ApiDataPage> {
                                         ),
                                       ),
                                       Text(
-                                        "Address: ${item['address']['street']}, ${item['address']['city']}",
+                                        "Address: ${item['address'] != null ? item['address']['street'] : 'No address available'}, ${item['address'] != null ? item['address']['city'] : 'No city available'}",
                                         style: const TextStyle(
                                           fontSize: 16,
                                           color: Colors.grey,

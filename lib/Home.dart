@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sigup_sigin_ui/ApiDataPage.dart';
+import 'package:sigup_sigin_ui/GalleryPage.dart';
 import 'package:sigup_sigin_ui/SignIn.dart';
 import 'package:sigup_sigin_ui/SignUp.dart';
 import 'package:sigup_sigin_ui/SplashScreen.dart';
@@ -79,18 +80,42 @@ class Home extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ApiDataPage()));
-                // MaterialPageRoute(builder: (context) => PerformanceCard()));
-              },
-              child: Text(
-                "Click here",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              style:
-                  ElevatedButton.styleFrom(backgroundColor: Color(0xFF93ABFF)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ApiDataPage()));
+                    // MaterialPageRoute(builder: (context) => GalleryPage()));
+                    // MaterialPageRoute(builder: (context) => PerformanceCard()));
+                  },
+                  child: Text(
+                    "Click Here",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF93ABFF)),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        // MaterialPageRoute(builder: (context) => ApiDataPage()));
+                        MaterialPageRoute(builder: (context) => GalleryPage()));
+                    // MaterialPageRoute(builder: (context) => PerformanceCard()));
+                  },
+                  child: Text(
+                    "Gallery Page",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF93ABFF)),
+                ),
+              ],
             )
           ],
         ),

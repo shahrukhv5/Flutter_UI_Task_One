@@ -40,6 +40,14 @@ dependencies:
   shared_preferences: ^2.3.3
   #http pakage
   http: ^1.2.2
+  #  photo_view.dart
+  photo_view: ^0.15.0
+  #  url_launcher
+  url_launcher: ^6.1.5
+  webview_flutter: ^4.10.0
+  #  cached_network_image
+  cached_network_image: ^3.4.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

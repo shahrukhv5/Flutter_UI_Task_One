@@ -1,124 +1,120 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sigup_sigin_ui/ApiDataPage.dart';
-import 'package:sigup_sigin_ui/GalleryPage.dart';
-import 'package:sigup_sigin_ui/SignIn.dart';
-import 'package:sigup_sigin_ui/SignUp.dart';
-import 'package:sigup_sigin_ui/SplashScreen.dart';
+import 'GalleryPage.dart';
+import 'ApiDataPage.dart';
+import 'Profile.dart';
+import 'CustomBottomNavBar.dart';
+import 'SignIn.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   final String fullname;
   final String email;
-  final GoogleSignInAccount? user; // Make this nullable
+  final GoogleSignInAccount? user;
 
   const Home({
     Key? key,
     required this.fullname,
     required this.email,
-    this.user, // Make this nullable
+    this.user,
   }) : super(key: key);
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _pages.addAll([
+      buildHomeContent(),
+      const GalleryPage(),
+      const ApiDataPage(),
+      const Profile(),
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF93ABFF),
-        title: const Text("Logged In"),
-        centerTitle: true,
-        actions: [
-          TextButton(
-            onPressed: () async {
-              var sharedPref = await SharedPreferences.getInstance();
-              sharedPref.setBool(SplashscreenState.KEYLOGIN, false);
-              await GoogleSignInApi.logout();
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const SignIn()),
-              );
-            },
-            child: const Text("Logout", style: TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "Profile",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
+      appBar: _currentIndex == 0 // Show AppBar only on the Home page
+          ? AppBar(
+              backgroundColor: const Color(0xFF93ABFF),
+              title: const Text(
+                'Home',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
               ),
-            ),
-            const SizedBox(height: 8),
-            // Show a placeholder image if user.photoUrl is null
-            CircleAvatar(
-              radius: 40,
-              backgroundImage: NetworkImage(user?.photoUrl ??
-                  'https://via.placeholder.com/150'), // Placeholder if null
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "Hello, ${user?.displayName ?? "Guest"}",
-              // Handle null displayName
-              style: const TextStyle(
-                color: Color(0xFF93ABFF),
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-            Text(
-              "Email: ${user?.email ?? email}",
-              // Fallback to email if user is null
-              style: const TextStyle(
-                color: Color(0xFF93ABFF),
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ApiDataPage()));
-                    // MaterialPageRoute(builder: (context) => GalleryPage()));
-                    // MaterialPageRoute(builder: (context) => PerformanceCard()));
+              centerTitle: true,
+              actions: [
+                TextButton(
+                  onPressed: () async {
+                    var sharedPref = await SharedPreferences.getInstance();
+                    sharedPref.setBool('KEYLOGIN', false);
+                    await GoogleSignIn().signOut();
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const SignIn()),
+                    );
                   },
-                  child: Text(
-                    "Click Here",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF93ABFF)),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        // MaterialPageRoute(builder: (context) => ApiDataPage()));
-                        MaterialPageRoute(builder: (context) => GalleryPage()));
-                    // MaterialPageRoute(builder: (context) => PerformanceCard()));
-                  },
-                  child: Text(
-                    "Gallery Page",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF93ABFF)),
+                  child: const Text("Logout",
+                      style: TextStyle(color: Colors.white)),
                 ),
               ],
             )
-          ],
-        ),
+          : null, // No AppBar for other pages
+      body: _pages[_currentIndex],
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget buildHomeContent() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            "Profile",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          ),
+          const SizedBox(height: 8),
+          CircleAvatar(
+            radius: 40,
+            backgroundImage: NetworkImage(
+              widget.user?.photoUrl ?? 'https://via.placeholder.com/150',
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            "Hello, ${widget.user?.displayName ?? "Guest"}",
+            style: const TextStyle(
+              color: Color(0xFF93ABFF),
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          Text(
+            "Email: ${widget.user?.email ?? widget.email}",
+            style: const TextStyle(
+              color: Color(0xFF93ABFF),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        ],
       ),
     );
   }

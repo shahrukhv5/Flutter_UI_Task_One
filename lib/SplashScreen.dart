@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sigup_sigin_ui/Home.dart';
 import 'package:sigup_sigin_ui/SignIn.dart';
@@ -67,11 +66,3 @@ class SplashscreenState extends State<Splashscreen> {
     });
   }
 }
-
-// class GoogleSignInApi {
-//   static final _googleSignIn = GoogleSignIn();
-//
-//   static Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
-//
-//   static Future logout() => _googleSignIn.disconnect();
-// }

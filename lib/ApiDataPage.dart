@@ -165,7 +165,11 @@ class _ApiDataPageState extends State<ApiDataPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Users List'),
+        title: const Text(
+          'Users List',
+          style: TextStyle(
+              color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: const Color(0xFF93ABFF),
         actions: [
           IconButton(

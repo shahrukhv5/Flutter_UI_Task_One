@@ -123,34 +123,6 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                     ),
-                    // ElevatedButton(
-                    //   onPressed: () async {
-                    //     if (_formKey.currentState!.validate()) {
-                    //       Navigator.push(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //             builder: (context) => Home(
-                    //                 fullname: _nameController.text,
-                    //                 email: _emailController.text,
-                    //                 user: await GoogleSignInApi.login(),
-                    //           )));
-                    //   }
-                    //   },
-                    //   style: ElevatedButton.styleFrom(
-                    //     backgroundColor: const Color(0xFF93ABFF),
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(30.0),
-                    //     ),
-                    //     minimumSize: const Size(400, 50),
-                    //   ),
-                    //   child: const Text(
-                    //     'Sign up',
-                    //     style: TextStyle(
-                    //       color: Colors.white,
-                    //       fontSize: 25.0,
-                    //     ),
-                    //   ),
-                    // ),
                     const SizedBox(height: 40),
                     _buildSignInPrompt(),
                     const SizedBox(height: 40),

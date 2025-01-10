@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'Home.dart';
 import 'GalleryPage.dart';
 import 'ApiDataPage.dart';
-import 'Profile.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -30,7 +29,8 @@ class CustomBottomNavBar extends StatelessWidget {
             _buildNavItem(context, Icons.home, "Home", 0),
             _buildNavItem(context, Icons.shop, "Gallery", 1),
             _buildNavItem(context, Icons.api, "API Data", 2),
-            _buildNavItem(context, Icons.person, "Profile", 3),
+            _buildNavItem(
+                context, Icons.document_scanner, "Text Recognition", 3),
           ],
         ),
       ),

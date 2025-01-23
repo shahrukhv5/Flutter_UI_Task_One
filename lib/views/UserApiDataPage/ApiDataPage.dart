@@ -1,111 +1,72 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:sigup_sigin_ui/UserDetailPage.dart';
+import 'package:sigup_sigin_ui/views/UserApiDataPage/UserDetailPage/UserDetailPage.dart';
+import 'package:sigup_sigin_ui/controllers/UserController/UserController.dart';
+import 'package:sigup_sigin_ui/models/UserModel/User.dart';
 
 class ApiDataPage extends StatefulWidget {
-  const ApiDataPage({Key? key}) : super(key: key);
+  const ApiDataPage({super.key});
 
   @override
   _ApiDataPageState createState() => _ApiDataPageState();
 }
 
 class _ApiDataPageState extends State<ApiDataPage> {
-  List<dynamic> _data = [];
-  List<dynamic> _filteredData = [];
+  final UserController _userController = UserController();
+  List<User> _users = [];
+  List<User> _filteredUsers = [];
   bool _isLoading = false;
   String _searchQuery = '';
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    _loadUsers();
   }
 
-  Future<void> fetchData() async {
-    setState(() {
-      _isLoading = true;
-    });
-
+  void _loadUsers() async {
+    setState(() => _isLoading = true);
     try {
-      final url = Uri.parse('https://jsonplaceholder.typicode.com/users');
-      final response = await http.get(url);
-
-      if (response.statusCode == 200) {
-        final List<dynamic> responseData = json.decode(response.body);
-        setState(() {
-          _data = responseData;
-          _filteredData = responseData;
-        });
-      } else {
-        throw Exception('Failed to load data');
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error fetching data: $e')),
-      );
-    } finally {
+      final users = await _userController.fetchUsers();
       setState(() {
-        _isLoading = false;
+        _users = users;
+        _filteredUsers = users;
       });
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error: $e')));
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
-  Future<void> postData(Map<String, dynamic> newUser) async {
-    setState(() {
-      _isLoading = true;
-    });
-
+  void _addUser(Map<String, dynamic> newUser) async {
+    setState(() => _isLoading = true);
     try {
-      final url = Uri.parse('https://jsonplaceholder.typicode.com/users');
-      final response = await http.post(
-        url,
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(newUser),
-      );
-
-      if (response.statusCode == 201) {
-        final createdUser = jsonDecode(response.body);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('User created successfully!')),
-        );
-
-        setState(() {
-          _data.add(createdUser); // Add new user to the list
-          _filteredData = _data; // Update filtered list
-        });
-      } else {
-        throw Exception('Failed to create user');
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    } finally {
+      final user = await _userController.createUser(newUser);
       setState(() {
-        _isLoading = false;
+        _users.add(user);
+        _filteredUsers = _users;
       });
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('User added successfully')));
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error: $e')));
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
-  void _filterData(String query) {
+  void _filterUsers(String query) {
     setState(() {
       _searchQuery = query;
-      if (query.isEmpty) {
-        _filteredData = _data;
-      } else {
-        _filteredData = _data
-            .where((item) =>
-                item['name']
-                    .toString()
-                    .toLowerCase()
-                    .contains(query.toLowerCase()) ||
-                item['email']
-                    .toString()
-                    .toLowerCase()
-                    .contains(query.toLowerCase()))
-            .toList();
-      }
+      _filteredUsers = query.isEmpty
+          ? _users
+          : _users
+              .where((user) =>
+                  user.name.toLowerCase().contains(query.toLowerCase()) ||
+                  user.email.toLowerCase().contains(query.toLowerCase()))
+              .toList();
     });
   }
 
@@ -116,48 +77,40 @@ class _ApiDataPageState extends State<ApiDataPage> {
 
     showDialog(
       context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Add New User'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
+      builder: (context) => AlertDialog(
+        title: const Text('Add New User'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
                 controller: nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-              ),
-              TextField(
+                decoration: const InputDecoration(labelText: 'Name')),
+            TextField(
                 controller: emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
-              ),
-              TextField(
+                decoration: const InputDecoration(labelText: 'Email')),
+            TextField(
                 controller: phoneController,
-                decoration: const InputDecoration(labelText: 'Phone'),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                final newUser = {
-                  'name': nameController.text,
-                  'email': emailController.text,
-                  'phone': phoneController.text,
-                };
-                postData(newUser);
-                Navigator.pop(context);
-              },
-              child: const Text('Add'),
-            ),
+                decoration: const InputDecoration(labelText: 'Phone')),
           ],
-        );
-      },
+        ),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel')),
+          ElevatedButton(
+            onPressed: () {
+              final newUser = {
+                'name': nameController.text,
+                'email': emailController.text,
+                'phone': phoneController.text,
+              };
+              _addUser(newUser);
+              Navigator.pop(context);
+            },
+            child: const Text('Add'),
+          ),
+        ],
+      ),
     );
   }
 
@@ -193,7 +146,7 @@ class _ApiDataPageState extends State<ApiDataPage> {
               children: [
                 const SizedBox(height: 20),
                 TextField(
-                  onChanged: _filterData,
+                  onChanged: _filterUsers,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -213,15 +166,15 @@ class _ApiDataPageState extends State<ApiDataPage> {
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : ListView.builder(
-                    itemCount: _filteredData.length,
+                    itemCount: _filteredUsers.length,
                     itemBuilder: (context, index) {
-                      final item = _filteredData[index];
+                      final user = _filteredUsers[index];
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => UserDetailPage(user: item),
+                              builder: (context) => UserDetailPage(user: user),
                             ),
                           );
                         },
@@ -241,7 +194,7 @@ class _ApiDataPageState extends State<ApiDataPage> {
                                   backgroundColor: const Color(0xFF93ABFF),
                                   radius: 30,
                                   child: Text(
-                                    item['id'].toString(),
+                                    user.id.toString(),
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
@@ -255,17 +208,14 @@ class _ApiDataPageState extends State<ApiDataPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Name: " +
-                                            item['name']
-                                                .toString()
-                                                .toUpperCase(),
+                                        "Name: ${user.name.toUpperCase()}",
                                         style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Text(
-                                        "Email: " + item['email'],
+                                        "Email: ${user.email}",
                                         style: const TextStyle(
                                           fontSize: 18,
                                           color: Colors.grey,
@@ -273,7 +223,7 @@ class _ApiDataPageState extends State<ApiDataPage> {
                                         ),
                                       ),
                                       Text(
-                                        "Address: ${item['address'] != null ? item['address']['street'] : 'No address available'}, ${item['address'] != null ? item['address']['city'] : 'No city available'}",
+                                        "Address: ${user.address}, ${user.city}",
                                         style: const TextStyle(
                                           fontSize: 16,
                                           color: Colors.grey,

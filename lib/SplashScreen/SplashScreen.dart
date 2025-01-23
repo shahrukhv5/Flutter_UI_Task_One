@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sigup_sigin_ui/Home.dart';
-import 'package:sigup_sigin_ui/SignIn.dart';
-import 'package:sigup_sigin_ui/SignUp.dart';
+import 'package:sigup_sigin_ui/HomePage/Home.dart';
+import 'package:sigup_sigin_ui/SignIn&SignUpPages/SignIn.dart';
+import 'package:sigup_sigin_ui/SignIn&SignUpPages/SignUp.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});

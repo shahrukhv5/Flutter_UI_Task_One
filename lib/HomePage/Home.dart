@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sigup_sigin_ui/TextRecognition.dart';
-import 'GalleryPage.dart';
-import 'ApiDataPage.dart';
-import 'CustomBottomNavBar.dart';
-import 'SignIn.dart';
+import 'package:sigup_sigin_ui/TextRecognition/TextRecognition.dart';
+import 'package:sigup_sigin_ui/views/FormView/FormView.dart';
+import 'package:sigup_sigin_ui/views/GalleryPages/GalleryPage.dart';
+import 'package:sigup_sigin_ui/views/UserApiDataPage/ApiDataPage.dart';
+import '../BottomNavBar/CustomBottomNavBar.dart';
+import '../SignIn&SignUpPages/SignIn.dart';
 
 class Home extends StatefulWidget {
   final String fullname;
@@ -36,6 +37,7 @@ class _HomeState extends State<Home> {
       const GalleryPage(),
       const ApiDataPage(),
       const TextRecognition(),
+      const FormView()
     ]);
   }
 

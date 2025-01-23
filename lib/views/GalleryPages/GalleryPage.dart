@@ -1,10 +1,9 @@
-import 'package:webview_flutter/webview_flutter.dart';
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:sigup_sigin_ui/views/GalleryPages/ProductInfoPage.dart';
+import 'package:sigup_sigin_ui/views/GalleryPages/ZoomableImageView.dart';
+import '../../controllers/GalleryController/GalleryController.dart';
+import '../../models/ PhotoModel/Photo.dart';
 
 class GalleryPage extends StatefulWidget {
   const GalleryPage({super.key});
@@ -14,25 +13,25 @@ class GalleryPage extends StatefulWidget {
 }
 
 class _GalleryPageState extends State<GalleryPage> {
-  List<dynamic> photos = [];
+  final GalleryController _galleryController = GalleryController();
+  List<Photo> photos = [];
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    fetchPhotos();
+    _loadPhotos();
   }
 
-  Future<void> fetchPhotos() async {
-    final response = await http
-        .get(Uri.parse('https://picsum.photos/v2/list?page=1&limit=10'));
-    if (response.statusCode == 200) {
-      setState(() {
-        photos = json.decode(response.body);
-        isLoading = false;
-      });
-    } else {
-      throw Exception('Failed to load photos');
+  Future<void> _loadPhotos() async {
+    setState(() => isLoading = true);
+    try {
+      photos = await _galleryController.fetchPhotos();
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error: $e')));
+    } finally {
+      setState(() => isLoading = false);
     }
   }
 
@@ -54,6 +53,7 @@ class _GalleryPageState extends State<GalleryPage> {
               padding: const EdgeInsets.all(8),
               itemCount: photos.length,
               itemBuilder: (context, index) {
+                final photo = photos[index];
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -81,7 +81,7 @@ class _GalleryPageState extends State<GalleryPage> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(12),
                                 child: CachedNetworkImage(
-                                  imageUrl: photos[index]['download_url'],
+                                  imageUrl: photo.downloadUrl,
                                   height: 150,
                                   width: 150,
                                   fit: BoxFit.cover,
@@ -98,7 +98,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Product ${photos[index]['id']}',
+                                      'Product ${photo.id}',
                                       style: const TextStyle(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold,
@@ -209,80 +209,6 @@ class _GalleryPageState extends State<GalleryPage> {
                 );
               },
             ),
-    );
-  }
-}
-
-class ZoomableImageView extends StatelessWidget {
-  final List<dynamic> photos;
-  final int index;
-
-  const ZoomableImageView(
-      {super.key, required this.photos, required this.index});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF93ABFF),
-        title: const Text('Zoomable Image'),
-      ),
-      body: PhotoViewGallery.builder(
-        itemCount: photos.length,
-        builder: (context, index) {
-          return PhotoViewGalleryPageOptions(
-            imageProvider: NetworkImage(photos[index]['download_url']),
-            initialScale: PhotoViewComputedScale.contained,
-            heroAttributes: PhotoViewHeroAttributes(tag: photos[index]['id']),
-          );
-        },
-        pageController: PageController(initialPage: index),
-        scrollPhysics: const BouncingScrollPhysics(),
-        loadingBuilder: (context, event) => const Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
-    );
-  }
-}
-
-class ProductInfoPage extends StatelessWidget {
-  final dynamic photo;
-
-  const ProductInfoPage({super.key, required this.photo});
-
-  @override
-  Widget build(BuildContext context) {
-    final url = photo['url'];
-    if (url == null || !url.startsWith('http')) {
-      return Scaffold(
-        appBar: AppBar(title: const Text('Error')),
-        body: const Center(child: Text('Invalid URL')),
-      );
-    }
-
-    final WebViewController controller = WebViewController();
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF93ABFF),
-        title: const Text(
-          'Product Info',
-          style: TextStyle(
-              color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              controller.reload();
-            },
-          ),
-        ],
-      ),
-      body: WebViewWidget(
-        controller: controller..loadRequest(Uri.parse(url)),
-      ),
     );
   }
 }

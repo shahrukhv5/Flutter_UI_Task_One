@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sigup_sigin_ui/SplashScreen.dart';
+import 'package:sigup_sigin_ui/SplashScreen/SplashScreen.dart';
 
 void main() {
   runApp(MaterialApp(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../controllers/FormController/FormController.dart';
 
 class FormView extends StatefulWidget {
@@ -17,24 +18,27 @@ class _FormViewState extends State<FormView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'General Info Form',
           style: TextStyle(
-              color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+              color: Colors.white,
+              fontSize: 25.sp,
+              fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xFF93ABFF),
+        backgroundColor: const Color(0xFF93ABFF),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 2, 16.0, 0),
+        padding: EdgeInsets.fromLTRB(16.0.w, 2.h, 16.0.w, 0.h),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
               // Worker Type Selection
-              const Text('Worker Type',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text('Worker Type',
+                  style:
+                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold)),
               SizedBox(
-                height: 5,
+                height: 5.h,
               ),
               Center(
                 child: Row(
@@ -44,11 +48,11 @@ class _FormViewState extends State<FormView> {
                     Expanded(
                       child: _buildOption('Fixed Rate', Icons.credit_card),
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10.w),
                     Expanded(
                       child: _buildOption('Pay As You', Icons.hourglass_empty),
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10.w),
                     Expanded(
                       child: _buildOption(
                           'Milestone', Icons.account_balance_wallet),
@@ -56,12 +60,13 @@ class _FormViewState extends State<FormView> {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               // Personal Information Fields
-              const Text('Personal Information',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text('Personal Information',
+                  style:
+                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold)),
               SizedBox(
-                height: 5,
+                height: 5.h,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,22 +78,22 @@ class _FormViewState extends State<FormView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'First Name',
                               style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
+                                  fontSize: 16.sp, fontWeight: FontWeight.w500),
                             ),
                             TextFormField(
                               onChanged: _controller.updateFirstName,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: BorderRadius.circular(8.r),
                                   borderSide:
                                       const BorderSide(color: Colors.grey),
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 12,
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16.w,
+                                  vertical: 12.h,
                                 ),
                                 hintText: 'Enter first name',
                               ),
@@ -96,27 +101,27 @@ class _FormViewState extends State<FormView> {
                           ],
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      SizedBox(width: 16.w),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Last Name',
                               style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
+                                  fontSize: 16.sp, fontWeight: FontWeight.w500),
                             ),
                             TextFormField(
                               onChanged: _controller.updateLastName,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: BorderRadius.circular(8.r),
                                   borderSide:
                                       const BorderSide(color: Colors.grey),
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 12,
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16.w,
+                                  vertical: 12.h,
                                 ),
                                 hintText: 'Enter last name',
                               ),
@@ -126,7 +131,7 @@ class _FormViewState extends State<FormView> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: 5.h),
                   // Second Row: Email and Phone Number
                   Row(
                     children: [
@@ -134,10 +139,10 @@ class _FormViewState extends State<FormView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Email',
                               style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
+                                  fontSize: 16.sp, fontWeight: FontWeight.w500),
                             ),
                             TextFormField(
                               onChanged: _controller.updateEmail,
@@ -148,13 +153,13 @@ class _FormViewState extends State<FormView> {
                               },
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: BorderRadius.circular(8.r),
                                   borderSide:
                                       const BorderSide(color: Colors.grey),
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 12,
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16.w,
+                                  vertical: 12.h,
                                 ),
                                 hintText: 'Enter email',
                               ),
@@ -162,15 +167,15 @@ class _FormViewState extends State<FormView> {
                           ],
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      SizedBox(width: 16.w),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Phone Number',
                               style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
+                                  fontSize: 16.sp, fontWeight: FontWeight.w500),
                             ),
                             TextFormField(
                               onChanged: _controller.updatePhoneNumber,
@@ -178,13 +183,13 @@ class _FormViewState extends State<FormView> {
                                 prefixIcon: const Icon(Icons.phone),
                                 // Country code icon
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: BorderRadius.circular(8.r),
                                   borderSide:
                                       const BorderSide(color: Colors.grey),
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 12,
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16.w,
+                                  vertical: 12.h,
                                 ),
                                 hintText: 'Enter phone number',
                               ),
@@ -196,54 +201,55 @@ class _FormViewState extends State<FormView> {
                   ),
                 ],
               ),
-              const SizedBox(height: 5),
-              const Text(
+              SizedBox(height: 5.h),
+              Text(
                 'Address',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
               ),
               TextFormField(
                 onChanged: _controller.updateAddress,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                     borderSide: const BorderSide(color: Colors.grey),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 12.h,
                   ),
                   hintText: 'Enter address',
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 10.h,
               ),
               // Contract Details
-              const Text('Contract Detail',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text('Contract Detail',
+                  style:
+                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold)),
               SizedBox(
-                height: 5,
+                height: 5.h,
               ),
-              const Text(
+              Text(
                 'Contract Name',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
               ),
               TextFormField(
                 onChanged: _controller.updateContractName,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                     borderSide: const BorderSide(color: Colors.grey),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 12.h,
                   ),
                   hintText: 'Enter contract name',
                 ),
               ),
               SizedBox(
-                height: 5,
+                height: 5.h,
               ),
               Row(
                 children: [
@@ -251,10 +257,10 @@ class _FormViewState extends State<FormView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Tax Residence',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500),
+                              fontSize: 16.sp, fontWeight: FontWeight.w500),
                         ),
                         DropdownButtonFormField<String>(
                           value: _controller.worker.taxResidence,
@@ -273,12 +279,12 @@ class _FormViewState extends State<FormView> {
                           },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.r),
                               borderSide: const BorderSide(color: Colors.grey),
                             ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 12,
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 16.w,
+                              vertical: 12.h,
                             ),
                             hintText: 'Tax Residence',
                           ),
@@ -286,15 +292,15 @@ class _FormViewState extends State<FormView> {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: 16.w),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Seniority Level',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500),
+                              fontSize: 16.sp, fontWeight: FontWeight.w500),
                         ),
                         DropdownButtonFormField<String>(
                           value: _controller.worker.seniorityLevel,
@@ -313,12 +319,12 @@ class _FormViewState extends State<FormView> {
                           },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.r),
                               borderSide: const BorderSide(color: Colors.grey),
                             ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 12,
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 16.w,
+                              vertical: 12.h,
                             ),
                             hintText: 'Seniority Level',
                           ),
@@ -328,22 +334,24 @@ class _FormViewState extends State<FormView> {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Label
                   Text(
                     "Scope of work",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: 5.h),
                   // Card Container
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.r),
                       color: Colors.white,
                     ),
                     child: Column(
@@ -353,11 +361,11 @@ class _FormViewState extends State<FormView> {
                         Text(
                           "Project Overview",
                           style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.black),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: 5.h),
                         TextFormField(
                           maxLines: 3,
                           onChanged: _controller.updateScopeOfWork,
@@ -366,14 +374,14 @@ class _FormViewState extends State<FormView> {
                             hintText: 'Describe the project...',
                           ),
                         ),
-                        SizedBox(height: 2),
+                        SizedBox(height: 2.h),
                         // Character Count
                         Align(
                           alignment: Alignment.bottomRight,
                           child: Text(
                             "320/1000",
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 12.sp,
                               color: Colors.grey,
                             ),
                           ),
@@ -383,7 +391,7 @@ class _FormViewState extends State<FormView> {
                   ),
                 ],
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: 5.h),
               // Submit Button
               ElevatedButton(
                 onPressed: () {
@@ -420,23 +428,24 @@ class _FormViewState extends State<FormView> {
         });
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
         decoration: BoxDecoration(
           // color: isSelected ? Colors.lightBlue[100] : Colors.white,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.r),
           border: Border.all(
             color: isSelected ? Color(0xFF93ABFF) : Colors.grey,
-            width: 2,
+            width: 2.w,
           ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, color: isSelected ? Color(0xFF93ABFF) : Colors.grey),
-            const SizedBox(width: 8),
+            SizedBox(width: 8.w),
             Text(
               title,
               style: TextStyle(
+                // fontSize: 10.sp, //Optional
                 color: isSelected ? Color(0xFF93ABFF) : Colors.black,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),

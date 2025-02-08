@@ -1,132 +1,5 @@
-// import 'package:flutter/material.dart';
-//
-// class UserDetailPage extends StatelessWidget {
-//   final dynamic user;
-//
-//   const UserDetailPage({Key? key, required this.user}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.grey[200],
-//       appBar: AppBar(
-//         title: const Text("User Details"),
-//         backgroundColor: const Color(0xFF93ABFF),
-//       ),
-//       body: Center(
-//         child: Card(
-//           elevation: 5,
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(20),
-//           ),
-//           child: Container(
-//             width: 350,
-//             padding: const EdgeInsets.all(20),
-//             child: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Row(
-//                   children: [
-//                     CircleAvatar(
-//                       backgroundColor: const Color(0xFF93ABFF),
-//                       radius: 30,
-//                       child: Text(
-//                         user['id'].toString(),
-//                         style: const TextStyle(color: Colors.white),
-//                       ),
-//                     ),
-//                     const SizedBox(width: 15),
-//                     Expanded(
-//                       child: Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           Text(
-//                             "Name: ${user['name'] ?? 'N/A'}", // Null check
-//                             style: const TextStyle(
-//                               fontSize: 22,
-//                               fontWeight: FontWeight.bold,
-//                             ),
-//                           ),
-//                           Text(
-//                             "Email: ${user['email'] ?? 'N/A'}", // Null check
-//                             style: const TextStyle(
-//                               fontSize: 18,
-//                               color: Colors.grey,
-//                             ),
-//                           ),
-//                           Text(
-//                             "Phone: ${user['phone'] ?? 'N/A'}", // Null check
-//                             style: const TextStyle(
-//                               fontSize: 18,
-//                               color: Colors.grey,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//                 const SizedBox(height: 10),
-//                 Divider(color: Colors.grey.shade400, thickness: 1),
-//                 const SizedBox(height: 10),
-//                 Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       "Website: ${user['website'] ?? 'N/A'}", // Null check
-//                       style: const TextStyle(
-//                         fontSize: 18,
-//                         color: Colors.grey,
-//                       ),
-//                     ),
-//                     const SizedBox(height: 10),
-//                     const Text(
-//                       "Address:",
-//                       style: TextStyle(
-//                         fontSize: 20,
-//                         fontWeight: FontWeight.bold,
-//                       ),
-//                     ),
-//                     // Null check for address fields
-//                     Text(
-//                       user['address'] != null
-//                           ? "${user['address']['street'] ?? ''}, ${user['address']['suite'] ?? ''}, ${user['address']['city'] ?? ''}, ${user['address']['zipcode'] ?? ''}"
-//                           : "N/A",
-//                       style: const TextStyle(
-//                         fontSize: 18,
-//                         color: Colors.grey,
-//                       ),
-//                     ),
-//                     const SizedBox(height: 10),
-//                     const Text(
-//                       "Company:",
-//                       style: TextStyle(
-//                         fontSize: 20,
-//                         fontWeight: FontWeight.bold,
-//                       ),
-//                     ),
-//                     // Null check for company fields
-//                     Text(
-//                       user['company'] != null
-//                           ? "${user['company']['name'] ?? ''} - ${user['company']['catchPhrase'] ?? ''}"
-//                           : "N/A",
-//                       style: const TextStyle(
-//                         fontSize: 18,
-//                         color: Colors.grey,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sigup_sigin_ui/models/UserModel/User.dart';
 
 class UserDetailPage extends StatelessWidget {
@@ -139,18 +12,24 @@ class UserDetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: const Text("User Details"),
+        title: Text(
+          "User Details",
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 25.sp,
+              fontWeight: FontWeight.bold),
+        ),
         backgroundColor: const Color(0xFF93ABFF),
       ),
       body: Center(
         child: Card(
           elevation: 5,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20.r),
           ),
           child: Container(
-            width: 350,
-            padding: const EdgeInsets.all(20),
+            width: 350.w,
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,35 +38,35 @@ class UserDetailPage extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       backgroundColor: const Color(0xFF93ABFF),
-                      radius: 30,
+                      radius: 30.r,
                       child: Text(
                         user.id.toString(),
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
-                    const SizedBox(width: 15),
+                    SizedBox(width: 15.w),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Name: ${user.name ?? 'N/A'}", // Null check
-                            style: const TextStyle(
-                              fontSize: 22,
+                            style: TextStyle(
+                              fontSize: 22.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
                             "Email: ${user.email ?? 'N/A'}", // Null check
-                            style: const TextStyle(
-                              fontSize: 18,
+                            style: TextStyle(
+                              fontSize: 18.sp,
                               color: Colors.grey,
                             ),
                           ),
                           Text(
                             "Phone: ${user.phone ?? 'N/A'}", // Null check
-                            style: const TextStyle(
-                              fontSize: 18,
+                            style: TextStyle(
+                              fontSize: 18.sp,
                               color: Colors.grey,
                             ),
                           ),
@@ -196,24 +75,24 @@ class UserDetailPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 Divider(color: Colors.grey.shade400, thickness: 1),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Website: ${user.website ?? 'N/A'}", // Null check
-                      style: const TextStyle(
-                        fontSize: 18,
+                      style: TextStyle(
+                        fontSize: 18.sp,
                         color: Colors.grey,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const Text(
+                    SizedBox(height: 10.h),
+                    Text(
                       "Address:",
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -222,24 +101,24 @@ class UserDetailPage extends StatelessWidget {
                       user.address != null
                           ? "${user.address}, Suite: ${user.suite}, ${user.city}, Zipcode: ${user.zipcode}"
                           : "N/A",
-                      style: const TextStyle(
-                        fontSize: 18,
+                      style: TextStyle(
+                        fontSize: 18.sp,
                         color: Colors.grey,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const Text(
+                    SizedBox(height: 10.h),
+                    Text(
                       "Company:",
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     // Null check for company fields
                     Text(
                       user.company != null ? "${user.company}" : "N/A",
-                      style: const TextStyle(
-                        fontSize: 18,
+                      style: TextStyle(
+                        fontSize: 18.sp,
                         color: Colors.grey,
                       ),
                     ),

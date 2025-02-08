@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sigup_sigin_ui/views/GalleryPages/ProductInfoPage.dart';
 import 'package:sigup_sigin_ui/views/GalleryPages/ZoomableImageView.dart';
 import '../../controllers/GalleryController/GalleryController.dart';
@@ -40,17 +41,19 @@ class _GalleryPageState extends State<GalleryPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF93ABFF),
-        title: const Text(
+        title: Text(
           'Product Gallery',
           style: TextStyle(
-              color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+              color: Colors.white,
+              fontSize: 25.sp,
+              fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
-              padding: const EdgeInsets.all(8),
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
               itemCount: photos.length,
               itemBuilder: (context, index) {
                 final photo = photos[index];
@@ -65,25 +68,26 @@ class _GalleryPageState extends State<GalleryPage> {
                     );
                   },
                   child: Card(
-                    margin: const EdgeInsets.only(bottom: 16),
+                    margin: EdgeInsets.only(bottom: 16.h),
                     elevation: 6,
                     color: const Color(0xFFE8F0FE),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(16.r),
                     ),
                     child: Stack(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.0.w, vertical: 16.0.h),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(12.r),
                                 child: CachedNetworkImage(
                                   imageUrl: photo.downloadUrl,
-                                  height: 150,
-                                  width: 150,
+                                  height: 150.h,
+                                  width: 150.w,
                                   fit: BoxFit.cover,
                                   placeholder: (context, url) => const Center(
                                     child: CircularProgressIndicator(),
@@ -92,43 +96,43 @@ class _GalleryPageState extends State<GalleryPage> {
                                       const Icon(Icons.error),
                                 ),
                               ),
-                              const SizedBox(width: 16),
+                              SizedBox(width: 16.w),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       'Product ${photo.id}',
-                                      style: const TextStyle(
-                                        fontSize: 22,
+                                      style: TextStyle(
+                                        fontSize: 22.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Color(0xFF3A4D7F),
                                       ),
                                     ),
-                                    const SizedBox(height: 10),
+                                    SizedBox(height: 10.h),
                                     Row(
                                       children: [
-                                        const Icon(Icons.star,
-                                            color: Colors.amber, size: 20),
-                                        const Icon(Icons.star,
-                                            color: Colors.amber, size: 20),
-                                        const Icon(Icons.star,
-                                            color: Colors.amber, size: 20),
-                                        const Icon(Icons.star_half,
-                                            color: Colors.amber, size: 20),
-                                        const Icon(Icons.star_outline,
-                                            color: Colors.grey, size: 20),
-                                        const SizedBox(width: 6),
+                                        Icon(Icons.star,
+                                            color: Colors.amber, size: 20.sp),
+                                        Icon(Icons.star,
+                                            color: Colors.amber, size: 20.sp),
+                                        Icon(Icons.star,
+                                            color: Colors.amber, size: 20.sp),
+                                        Icon(Icons.star_half,
+                                            color: Colors.amber, size: 20.sp),
+                                        Icon(Icons.star_outline,
+                                            color: Colors.grey, size: 20.sp),
+                                        SizedBox(width: 6.w),
                                         Text(
                                           '(${5 + index})',
-                                          style: const TextStyle(
-                                            fontSize: 14,
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
                                             color: Colors.grey,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 12),
+                                    SizedBox(height: 12.h),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -139,8 +143,8 @@ class _GalleryPageState extends State<GalleryPage> {
                                           children: [
                                             Text(
                                               '₹${(index + 1) * 500 + 1000}',
-                                              style: const TextStyle(
-                                                fontSize: 16,
+                                              style: TextStyle(
+                                                fontSize: 16.sp,
                                                 color: Colors.grey,
                                                 decoration:
                                                     TextDecoration.lineThrough,
@@ -148,8 +152,8 @@ class _GalleryPageState extends State<GalleryPage> {
                                             ),
                                             Text(
                                               '₹${(index + 1) * 500}',
-                                              style: const TextStyle(
-                                                fontSize: 20,
+                                              style: TextStyle(
+                                                fontSize: 20.sp,
                                                 color: Color(0xFF43A047),
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -168,10 +172,11 @@ class _GalleryPageState extends State<GalleryPage> {
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
                                                 const Color(0xFF93ABFF),
-                                            padding: const EdgeInsets.all(8),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 8.w, vertical: 8.w),
                                           ),
-                                          child: const Icon(Icons.info,
-                                              size: 20, color: Colors.white),
+                                          child: Icon(Icons.info,
+                                              size: 20.sp, color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -183,22 +188,22 @@ class _GalleryPageState extends State<GalleryPage> {
                         ),
                         // Discount Badge
                         Positioned(
-                          top: 20,
-                          right: 20,
+                          top: 20.h,
+                          right: 20.w,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 8),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 15.w, vertical: 8.h),
                             decoration: BoxDecoration(
                               color: const Color(0xFFE53935),
                               // Red color for discount
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(4.r),
                             ),
                             child: Text(
                               '-${10 + (index * 5)}%',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                                fontSize: 15.sp,
                               ),
                             ),
                           ),

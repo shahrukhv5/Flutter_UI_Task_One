@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -13,12 +14,12 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+      padding: EdgeInsets.only(bottom: 10.h, left: 5.w, right: 5.w),
       child: Container(
-        height: 80,
+        height: 80.h,
         decoration: BoxDecoration(
           color: const Color(0xFF93ABFF),
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(30.r),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -27,7 +28,7 @@ class CustomBottomNavBar extends StatelessWidget {
             _buildNavItem(context, Icons.shop, "Gallery", 1),
             _buildNavItem(context, Icons.api, "Users", 2),
             _buildNavItem(
-                context, Icons.document_scanner, "Text Recognition", 3),
+                context, Icons.document_scanner, "Text Recog", 3),
             _buildNavItem(context, Icons.text_snippet_rounded, "Form", 4),
           ],
         ),
@@ -35,17 +36,17 @@ class CustomBottomNavBar extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(
-      BuildContext context, IconData icon, String label, int index) {
+  Widget _buildNavItem(BuildContext context, IconData icon, String label,
+      int index) {
     final bool isSelected = currentIndex == index;
 
     return GestureDetector(
       onTap: () => onTap(index),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
         decoration: BoxDecoration(
           color: isSelected ? Colors.white : Colors.transparent,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
         ),
         child: Row(
           children: [
@@ -53,7 +54,7 @@ class CustomBottomNavBar extends StatelessWidget {
               icon,
               color: isSelected ? const Color(0xFF93ABFF) : Colors.white,
             ),
-            if (isSelected) const SizedBox(width: 8),
+            if (isSelected) SizedBox(width: 8.w),
             if (isSelected)
               Text(
                 label,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import '../../models/ PhotoModel/Photo.dart';
@@ -15,7 +16,13 @@ class ZoomableImageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF93ABFF),
-        title: const Text('Zoomable Image'),
+        title: Text(
+          'Zoomable Image',
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 25.sp,
+              fontWeight: FontWeight.bold),
+        ),
       ),
       body: PhotoViewGallery.builder(
         itemCount: photos.length,

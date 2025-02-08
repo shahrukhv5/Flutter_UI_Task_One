@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sigup_sigin_ui/HomePage/Home.dart';
 import 'package:sigup_sigin_ui/SignIn&SignUpPages/SignIn.dart';
@@ -27,11 +28,11 @@ class SplashscreenState extends State<Splashscreen> {
     return Scaffold(
       body: Container(
         color: Colors.white,
-        child: const Center(
+        child: Center(
           child: Text(
             "Splash Screen",
             style: TextStyle(
-                fontSize: 34,
+                fontSize: 34.sp,
                 color: Color(0xFF93ABFF),
                 fontWeight: FontWeight.w700),
           ),

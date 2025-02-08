@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sigup_sigin_ui/HomePage/Home.dart';
@@ -30,7 +31,7 @@ class _SignUpState extends State<SignUp> {
         body: SingleChildScrollView(
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+              padding: EdgeInsets.fromLTRB(20.0.w, 0.0.h, 20.0.w, 0.0.h),
               child: Form(
                 key: _formKey, // Attach the form key
                 child: Column(
@@ -41,19 +42,19 @@ class _SignUpState extends State<SignUp> {
                         image: AssetImage('assets/signupbg.png'),
                       ),
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           'Sign up to',
                           style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
+                              fontSize: 25.sp, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(width: 3),
+                        SizedBox(width: 3.w),
                         Text(
                           'Sync',
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 25.sp,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFF93ABFF)),
                         )
@@ -88,7 +89,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                     // Password Fields
                     _buildPasswordFields(),
-                    const SizedBox(height: 40),
+                    SizedBox(height: 40.h),
                     //Sign Up Button
                     ElevatedButton(
                       onPressed: () async {
@@ -111,36 +112,36 @@ class _SignUpState extends State<SignUp> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF93ABFF),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.circular(30.0.r),
                         ),
-                        minimumSize: const Size(400, 50),
+                        minimumSize: Size(400.w, 50.h),
                       ),
-                      child: const Text(
+                      child: Text(
                         'Sign up',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 25.0,
+                          fontSize: 25.0.sp,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    SizedBox(height: 40.h),
                     _buildSignInPrompt(),
-                    const SizedBox(height: 40),
+                    SizedBox(height: 40.h),
                     _buildSocialLogins(),
-                    const SizedBox(height: 20),
-                    const Row(
+                    SizedBox(height: 20.h),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           'Skip now',
-                          style: TextStyle(fontSize: 18, color: Colors.blue),
+                          style: TextStyle(fontSize: 18.sp, color: Colors.blue),
                         ),
                         SizedBox(
-                          width: 5,
+                          width: 5.w,
                         ),
                         Icon(
                           Icons.arrow_forward_ios_sharp,
-                          size: 15,
+                          size: 15.sp,
                           color: Colors.blue,
                         )
                       ],
@@ -224,21 +225,21 @@ class _SignUpState extends State<SignUp> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
+        Text(
           'Already have an account?',
-          style: TextStyle(color: Colors.grey, fontSize: 20),
+          style: TextStyle(color: Colors.grey, fontSize: 20.sp),
         ),
-        const SizedBox(width: 10),
+        SizedBox(width: 10.w),
         GestureDetector(
           onTap: () {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => const SignIn()));
           },
-          child: const Text(
+          child: Text(
             "Sign in",
             style: TextStyle(
                 color: Colors.blue,
-                fontSize: 20,
+                fontSize: 20.sp,
                 decoration: TextDecoration.underline,
                 decorationColor: Colors.blue),
           ),
@@ -251,33 +252,33 @@ class _SignUpState extends State<SignUp> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
+        Text(
           'Or Continue with',
-          style: TextStyle(color: Colors.grey, fontSize: 18),
+          style: TextStyle(color: Colors.grey, fontSize: 18.sp),
         ),
-        const SizedBox(width: 10),
+        SizedBox(width: 10.w),
         GestureDetector(
           onTap: signIn,
-          child: const CircleAvatar(
-            radius: 17,
+          child: CircleAvatar(
+            radius: 17.r,
             backgroundImage: AssetImage('assets/google.png'),
             backgroundColor: Colors.transparent,
           ),
         ),
-        const SizedBox(width: 5),
+        SizedBox(width: 5.w),
         GestureDetector(
           onTap: () {},
-          child: const CircleAvatar(
-            radius: 17,
+          child: CircleAvatar(
+            radius: 17.r,
             backgroundImage: AssetImage('assets/facebook.png'),
             backgroundColor: Colors.transparent,
           ),
         ),
-        const SizedBox(width: 5),
+        SizedBox(width: 5.w),
         GestureDetector(
           onTap: () {},
-          child: const CircleAvatar(
-            radius: 14,
+          child: CircleAvatar(
+            radius: 14.r,
             backgroundImage: AssetImage('assets/apple.png'),
             backgroundColor: Colors.transparent,
           ),

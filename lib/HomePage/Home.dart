@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sigup_sigin_ui/TextRecognition/TextRecognition.dart';
@@ -47,11 +48,11 @@ class _HomeState extends State<Home> {
       appBar: _currentIndex == 0 // Show AppBar only on the Home page
           ? AppBar(
               backgroundColor: const Color(0xFF93ABFF),
-              title: const Text(
+              title: Text(
                 'Home',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 25,
+                    fontSize: 25.sp,
                     fontWeight: FontWeight.bold),
               ),
               centerTitle: true,
@@ -88,32 +89,32 @@ class _HomeState extends State<Home> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             "Profile",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.sp),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           CircleAvatar(
-            radius: 40,
+            radius: 40.r,
             backgroundImage: NetworkImage(
               widget.user?.photoUrl ?? 'https://via.placeholder.com/150',
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Text(
             "Hello, ${widget.user?.displayName ?? "Guest"}",
-            style: const TextStyle(
+            style: TextStyle(
               color: Color(0xFF93ABFF),
               fontWeight: FontWeight.bold,
-              fontSize: 20,
+              fontSize: 20.sp,
             ),
           ),
           Text(
             "Email: ${widget.user?.email ?? widget.email}",
-            style: const TextStyle(
+            style: TextStyle(
               color: Color(0xFF93ABFF),
               fontWeight: FontWeight.bold,
-              fontSize: 16,
+              fontSize: 16.sp,
             ),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../models/ PhotoModel/Photo.dart';
 
@@ -14,10 +15,12 @@ class ProductInfoPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF93ABFF),
-        title: const Text(
+        title: Text(
           'Product Info',
           style: TextStyle(
-              color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+              color: Colors.white,
+              fontSize: 25.sp,
+              fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(

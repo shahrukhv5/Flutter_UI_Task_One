@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sigup_sigin_ui/views/UserApiDataPage/UserDetailPage/UserDetailPage.dart';
 import 'package:sigup_sigin_ui/controllers/UserController/UserController.dart';
 import 'package:sigup_sigin_ui/models/UserModel/User.dart';
@@ -118,10 +119,12 @@ class _ApiDataPageState extends State<ApiDataPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Users List',
           style: TextStyle(
-              color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+              color: Colors.white,
+              fontSize: 25.sp,
+              fontWeight: FontWeight.bold),
         ),
         backgroundColor: const Color(0xFF93ABFF),
         actions: [
@@ -134,17 +137,17 @@ class _ApiDataPageState extends State<ApiDataPage> {
       body: Column(
         children: [
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: Color(0xFF93ABFF),
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(25),
-                bottomRight: Radius.circular(25),
+                bottomLeft: Radius.circular(25.r),
+                bottomRight: Radius.circular(25.r),
               ),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
             child: Column(
               children: [
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 TextField(
                   onChanged: _filterUsers,
                   decoration: InputDecoration(
@@ -154,7 +157,7 @@ class _ApiDataPageState extends State<ApiDataPage> {
                     prefixIcon:
                         const Icon(Icons.search, color: Color(0xFF93ABFF)),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(30.r),
                       borderSide: BorderSide.none,
                     ),
                   ),
@@ -179,20 +182,21 @@ class _ApiDataPageState extends State<ApiDataPage> {
                           );
                         },
                         child: Card(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 10),
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 10.h),
                           elevation: 5,
                           shadowColor: Colors.blue.shade100,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(15.r),
                           ),
                           child: Container(
-                            padding: const EdgeInsets.all(20),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.w, vertical: 20.h),
                             child: Row(
                               children: [
                                 CircleAvatar(
                                   backgroundColor: const Color(0xFF93ABFF),
-                                  radius: 30,
+                                  radius: 30.r,
                                   child: Text(
                                     user.id.toString(),
                                     style: const TextStyle(
@@ -201,7 +205,7 @@ class _ApiDataPageState extends State<ApiDataPage> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 15),
+                                SizedBox(width: 15.w),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -209,23 +213,23 @@ class _ApiDataPageState extends State<ApiDataPage> {
                                     children: [
                                       Text(
                                         "Name: ${user.name.toUpperCase()}",
-                                        style: const TextStyle(
-                                          fontSize: 18,
+                                        style: TextStyle(
+                                          fontSize: 18.sp,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Text(
                                         "Email: ${user.email}",
-                                        style: const TextStyle(
-                                          fontSize: 18,
+                                        style: TextStyle(
+                                          fontSize: 18.sp,
                                           color: Colors.grey,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Text(
                                         "Address: ${user.address}, ${user.city}",
-                                        style: const TextStyle(
-                                          fontSize: 16,
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
                                           color: Colors.grey,
                                         ),
                                       ),

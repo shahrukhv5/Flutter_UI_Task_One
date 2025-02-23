@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sigup_sigin_ui/MySQL/DataTableDemo.dart';
 import 'package:sigup_sigin_ui/TextRecognition/TextRecognition.dart';
 import 'package:sigup_sigin_ui/views/FormView/FormView.dart';
 import 'package:sigup_sigin_ui/views/GalleryPages/GalleryPage.dart';
@@ -117,6 +118,15 @@ class _HomeState extends State<Home> {
               fontSize: 16.sp,
             ),
           ),
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => DataTableDemo()));
+              },
+              child: Text(
+                "Insert Record Page",
+                style: TextStyle(fontSize: 30.sp),
+              ))
         ],
       ),
     );
